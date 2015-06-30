@@ -1,20 +1,15 @@
 <?php
-    $filename = "32GB.IMG";		//Change to filename
-    $offsetsize = 1140224;		//
-    $recordsize = 196608;		//
+    $filename = "32GB.IMG";
+    //Change to filename
     
-    /* 
-    In my case:
+    $offsetsize = 1140224;		
+    //Find with hex editor
     
-    Cluster 29 -15358
-    6 Clusters spacing
-    
-    Byste per cluster: 32768
-    Bytes per sector: 512
-    First data sector: 449
-
-    Offset start (dec): 1130224
-    */
+    $recordsize = 196608;		
+    // 6 clusters left and 6 cluster right
+    // Byste per cluster: 32768
+    //So 6x32768=196608
+    //So split every 196608 bytes
     
     $handle = fopen ($filename, "r"); 
     $leftfile = fopen("channel1.wav", "w");
@@ -32,7 +27,6 @@
         }else{
             fwrite($rightfile, $bps);
         }
-        
         $leftsound = !$leftsound;
     }
     fclose ($handle);
